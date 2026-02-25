@@ -4,7 +4,7 @@
 A repository dedicated to applying Artificial Intelligence, Signal Processing, and Computer Vision techniques to real clinical data and biomedical problems. The focus is on robust mathematical implementation and clinical relevance.
 
 ### **Repository Structure**
-text
+'''
 biomedical_showcase/
 ├── assets/          # Documentation, research papers, and theoretical references.
 ├── images/          # Static outputs and visualizations from experiments for clinical review.
@@ -12,7 +12,7 @@ biomedical_showcase/
 └── src/             # Modular source code (.py) housing pure mathematical algorithms.
     ├── signals/     # 1D Signal Processing (ECG, EEG, EMG).
     └── vision/      # 2D/3D Medical Image Processing (MRI, X-Ray, CT scans, DICOM processing).
-
+'''
 ## **Engineering Workflow**
 
 * **Clinical Data Acquisition:** Sourcing real-world medical datasets (e.g., PhysioNet, NIH Chest X-rays).

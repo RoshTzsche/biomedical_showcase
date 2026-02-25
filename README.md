@@ -4,7 +4,7 @@
 A repository dedicated to applying Artificial Intelligence, Signal Processing, and Computer Vision techniques to real clinical data and biomedical problems. The focus is on robust mathematical implementation and clinical relevance.
 
 ### **Repository Structure**
-'''
+'''text
 biomedical_showcase/
 ├── assets/          # Documentation, research papers, and theoretical references.
 ├── images/          # Static outputs and visualizations from experiments for clinical review.

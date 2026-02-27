@@ -36,4 +36,4 @@ pip install -r requirements.txt
 jupyter notebook
 ```
 
-I'm open to suggestions, in fact, if you are reading this I encourage you to give me tips, ideas, I'm also open to work on projects together.
+I'm open to suggestions, in fact, if you are reading this I encourage you to give me tips or ideas. I'm also open to working on projects together!

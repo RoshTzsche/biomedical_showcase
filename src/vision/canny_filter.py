@@ -1,7 +1,7 @@
 import torch
 import torch.nn.functional as F
 # Non-Maximum Suppression (NMS) is a method used in object detection to remove extra boxes that are detected around the same object. When an object is detected multiple times with different bounding boxes, NMS keeps the best one and removes the rest. This helps us to make sure each object is counted only once, improving the accuracy and clarity of the results.
-def canny(image_tensor):
+def convolution(image_tensor):
     """
     Recycled function from filter_sobel, with a twist, I will transform the function
     into a canny filter, using the arctan2 funcion.
@@ -51,7 +51,9 @@ I won't use a single for loop, because this is slow, we need to use some vectori
 
 '''
 def NMS(image_tensor):
+   # The continuous gradient angles (from angle_deg of the above function) must be mathematically quantized into four discrete bins (0∘,45∘,90∘,135∘) to map onto the 8-connected discrete spatial geometry of a pixel matrix. 
     
-    degree_matrix = canny(image_tensor)[3]
+
+    degree_matrix = convolution(image_tensor)[3]
     Mask_0_deg = (angle_deg == 0)
 

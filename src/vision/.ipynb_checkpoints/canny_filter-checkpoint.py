@@ -53,36 +53,7 @@ I won't use a single for loop, because this is slow, we need to use some vectori
 def NMS(image_tensor):
    # The continuous gradient angles (from angle_deg of the above function) must be mathematically quantized into four discrete bins (0∘,45∘,90∘,135∘) to map onto the 8-connected discrete spatial geometry of a pixel matrix. 
     
-    magnitude_matrix = convolution(image_tensor)[2]
+
     degree_matrix = convolution(image_tensor)[3]
+    Mask_0_deg = (angle_deg == 0)
 
-    # Boolean masks
-    zero_degree_mask = (degree_matrix < 22.5) & (degree_matrix >= 157.5)
-    degree_mask_45 = (degree_matrix >= 22.5) & (degree_matrix < 67.5)
-    degree_mask_90 = (degree_matrix <= 67.5 ) & (degree_matrix > 112.5)
-    degree_mask_135 = (degree_matrix <= 112.5) & (degree_matrix > 157.5)
-    
-    # Calculating neighbors T - Top, B - Bottom, R - Right, L - Left
-    Neighbor_T = torch.roll(magnitude_matrix, shifts = 1, dims = 2)
-    Neighbor_B = torch.roll(magnitude_matrix, shifts = -1, dims = 2)
-    Neighbor_R = torch.roll(magnitude_matrix, shifts = 1, dims = 3)
-    Neighbor_L = torch.roll(magnitude_matrix, shifts = -1, dims = 3)
-    Neighbor_TR = torch.roll(magnitude_matrix, shifts=(-1, 1), dims=(2, 3))
-    Neighbor_BL = torch.roll(magnitude_matrix, shifts=(1, -1), dims=(2, 3))
-    Neighbor_TL = torch.roll(magnitude_matrix, shifts=(-1, -1), dims=(2, 3))
-    Neighbor_BR = torch.roll(magnitude_matrix, shifts=(1, 1), dims=(2, 3))
-    
-    # Aplly the non maxium suppresion in each neigbor
-    Survivor_0 = (magnitude_matrix >= Neighbor_R) & (magnitude_matrix >= Neighbor_L)
-    Survivor_45 = (magnitude_matrix >= Neighbor_TR) & (magnitude_matrix >= Neighbor_TL)
-    Survivor_90 = (magnitude_matrix >= Neighbor_T) & (magnitude_matrix >= Neighbor_B)
-    Survivor_135 = (magnitude_matrix >= Neighbor_TL) & (magnitude_matrix >= Neighbor_BR)
-
-    # Compute the isolated 45-degree edges
-    RESULT_0 = magnitude_matrix * zero_degree_mask * Survivor_0
-    RESULT_45 = magnitude_matrix * degree_mask_45 * Survivor_45
-    RESULT_90 = magnitude_matrix * degree_mask_90 * Survivor_90
-    RESULT_135 = magnitude_matrix * degree_mask_135 * Survivor_135
-    Final = RESULT_0 + RESULT_45 + RESULT_90 + RESULT_135
-    
-    return Final

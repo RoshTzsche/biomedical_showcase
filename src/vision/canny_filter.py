@@ -57,10 +57,10 @@ def NMS(image_tensor):
     degree_matrix = convolution(image_tensor)[3]
 
     # Boolean masks
-    zero_degree_mask = (degree_matrix < 22.5) & (degree_matrix >= 157.5)
-    degree_mask_45 = (degree_matrix >= 22.5) & (degree_matrix < 67.5)
-    degree_mask_90 = (degree_matrix <= 67.5 ) & (degree_matrix > 112.5)
-    degree_mask_135 = (degree_matrix <= 112.5) & (degree_matrix > 157.5)
+    zero_degree_mask = (degree_matrix < 22.5) | (degree_matrix >= 157.5)
+    degree_mask_45 = (degree_matrix >= 22.5) |(degree_matrix < 67.5)
+    degree_mask_90 = (degree_matrix <= 67.5 ) | (degree_matrix > 112.5)
+    degree_mask_135 = (degree_matrix <= 112.5) | (degree_matrix > 157.5)
     
     # Calculating neighbors T - Top, B - Bottom, R - Right, L - Left
     Neighbor_T = torch.roll(magnitude_matrix, shifts = 1, dims = 2)

@@ -86,3 +86,24 @@ def NMS(image_tensor):
     Final = RESULT_0 + RESULT_45 + RESULT_90 + RESULT_135
     
     return Final
+
+def noise_cleaner(image_tensor):
+
+    image = NMS(image_tensor)
+    max_matrix = torch.max(image)
+    #We assing two treshold for cleaning the noise 
+    t_high = max_matrix * 0.15   # 15% of max intensity
+    t_low = max_matrix * 0.05   # 5% of max intensity
+
+    # Boolean Classification Matrices
+    strong_edge = (image >= t_high)
+    weak_edge  = (image >= t_low) & (image < t_high)
+
+    # Output Matrix Construction
+    # We assign arbitrary distinct values so we can track them in the next step.
+    # E.g., Strong = 255 (White), Weak = 50 (Dark Gray), Noise = 0 (Black)
+    treshold_matrix = (strong_edge * 255) + (weak_edge * 50)
+
+
+
+    return treshold_matrix
